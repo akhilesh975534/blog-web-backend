@@ -29,6 +29,13 @@ app.get("/api/v1", (req, res) => {
 
 app.use("/api/v1/users", userRoutes);
 
+// Error Handling
+
+app.use(async (err, req, res, next) => {
+  const { status, message } = err;
+  return res.status(status).json({ error: true, success: false, message });
+});
+
 // Listen
 app.listen(PORT, () => {
   console.log(`Server Started PORT on ${PORT}`);
