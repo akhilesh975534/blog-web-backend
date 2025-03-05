@@ -4,6 +4,7 @@ import express from "express";
 import morgan from "morgan";
 import userRoutes from "./routes/auth.routes.js";
 import MongoDbConnection from "./db/server.js";
+import blogRoutes from "./routes/blog.routes.js";
 const app = express();
 
 // PORT
@@ -28,6 +29,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/blogs", blogRoutes)
 
 // Error Handling
 
@@ -37,6 +39,6 @@ app.use(async (err, req, res, next) => {
 });
 
 // Listen
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server Started PORT on ${PORT}`);
 });
