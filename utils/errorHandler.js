@@ -6,4 +6,13 @@ class ErrorResponse extends Error {
   }
 }
 
+export const asyncWrap = (fn) => {
+  return function (req, res, next) {
+    return fn(req, res, next).catch((error) => {
+      // console.log(error, "+++++++++++++++++");
+      next(error);
+    });
+  };
+};
+
 export default ErrorResponse;

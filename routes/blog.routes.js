@@ -4,12 +4,18 @@ import {
   deletePost,
   getAllPost,
   updatePost,
+  getSpecificPost,
 } from "../controllers/blog.controllers.js";
+import { asyncWrap } from "../utils/errorHandler.js";
+import Authentication from "../middelwares/auth.middleware.js";
 const router = express.Router();
 
-router.post("/create-blog", createNewPost);
-router.get("/", getAllPost);
-router.put("/update-blog/:id", updatePost);
-router.delete("/:id", deletePost);
+router.use(Authentication)
+
+router.post("/create-blog", asyncWrap(createNewPost));
+router.get("/", asyncWrap(getAllPost));
+router.get("/:id", asyncWrap(getSpecificPost));
+router.put("/update-blog/:id", asyncWrap(updatePost));
+router.delete("/:id", asyncWrap(deletePost));
 
 export default router;

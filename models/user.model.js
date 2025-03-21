@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema(
       enum: ["USER", "ADMIN"],
       default: "USER",
     },
+    blogId: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "blogs",
+      required: true,
+    },
   },
   { timestamps: true }
 );
