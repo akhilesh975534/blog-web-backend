@@ -38,18 +38,19 @@ const signupUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   const { email, password } = req?.body;
+  console.log(req?.body,"body++++++++++++++")
 
   const user = await User.findOne({ email });
   if (!user) {
     return next(
-      new ErrorResponse(401, "Please Enter valid email and password")
+      new ErrorResponse(400, "Please Enter valid email and password")
     );
   }
 
   const checkPassword = await user.comparePassword(password);
   if (!checkPassword) {
     return next(
-      new ErrorResponse(401, "Please Enter valid email and password")
+      new ErrorResponse(400, "Please Enter valid email and password")
     );
   }
 

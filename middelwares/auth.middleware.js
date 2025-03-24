@@ -8,7 +8,7 @@ const Authentication = async (req, res, next) => {
   // console.log(token,"token++++++++++++")
 
   if (!token) {
-    return next(new ErrorResponse(403, "User Unanthorized"));
+    return next(new ErrorResponse(401, "User Unanthorized"));
   }
 
   const decode = await jwt.verify(token, process.env.JWT_SECRET_KEY, {
@@ -20,7 +20,7 @@ const Authentication = async (req, res, next) => {
   next();
   
   if(!decode.id) {
-    return next(new ErrorResponse(403, "User Unanthorized"))
+    return next(new ErrorResponse(401, "User Unanthorized"))
   }
 
   console.log(decode.id)

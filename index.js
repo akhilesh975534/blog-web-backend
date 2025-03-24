@@ -6,7 +6,10 @@ import morgan from "morgan";
 import userRoutes from "./routes/auth.routes.js";
 import MongoDbConnection from "./db/server.js";
 import blogRoutes from "./routes/blog.routes.js";
+import bodyParser from "body-parser";
+import multer from "multer";
 const app = express();
+const upload = multer()
 
 // PORT
 const PORT = process.env.PORT || 8080;
@@ -22,6 +25,8 @@ MongoDbConnection(process.env.MONGODB_URI)
 
 // Middlewares
 app.use(express.json());
+app.use(bodyParser.json())
+app.use(upload.any())
 app.use(cors());
 app.use(morgan("tiny"));
 
