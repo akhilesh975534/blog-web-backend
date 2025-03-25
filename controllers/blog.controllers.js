@@ -30,7 +30,10 @@ const createNewPost = async (req, res, next) => {
 };
 
 const getAllPost = async (req, res, next) => {
-  const blogs = await Blog.find({});
+  const id = req.userId;
+  console.log(id, "+++++++++++++");
+
+  const blogs = await Blog.find({ user: id });
   if (!blogs) {
     return next(new ErrorResponse(404, "Blog Not found"));
   }
