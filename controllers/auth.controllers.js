@@ -38,7 +38,6 @@ const signupUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
   const { email, password } = req?.body;
-  console.log(req?.body,"body++++++++++++++")
 
   const user = await User.findOne({ email });
   if (!user) {
@@ -70,7 +69,12 @@ const loginUser = async (req, res, next) => {
     error: false,
     message: "Successfully login user",
     token,
-    user: { username: user.username, email: user.email, role: user.role },
+    user: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    },
   });
 };
 

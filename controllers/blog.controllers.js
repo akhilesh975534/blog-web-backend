@@ -31,7 +31,6 @@ const createNewPost = async (req, res, next) => {
 
 const getAllPost = async (req, res, next) => {
   const id = req.userId;
-  console.log(id, "+++++++++++++");
 
   const blogs = await Blog.find({ user: id });
   if (!blogs) {
@@ -43,10 +42,8 @@ const getAllPost = async (req, res, next) => {
 
 const getSpecificPost = async (req, res, next) => {
   const { id } = req?.params;
-  // console.log(id);
 
   const blog = await Blog.findById(id);
-  // console.log(blog);
   if (!blog) {
     return next(new ErrorResponse(400, "Blog Not found"));
   }

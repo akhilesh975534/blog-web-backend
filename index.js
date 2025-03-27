@@ -3,13 +3,12 @@ env.config();
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import userRoutes from "./routes/auth.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 import MongoDbConnection from "./db/server.js";
 import blogRoutes from "./routes/blog.routes.js";
 import bodyParser from "body-parser";
-import multer from "multer";
+import userRoutes from "./routes/user.routes.js";
 const app = express();
-const upload = multer()
 
 // PORT
 const PORT = process.env.PORT || 8080;
@@ -25,8 +24,6 @@ MongoDbConnection(process.env.MONGODB_URI)
 
 // Middlewares
 app.use(express.json());
-app.use(bodyParser.json())
-app.use(upload.any())
 app.use(cors());
 app.use(morgan("tiny"));
 
@@ -35,8 +32,9 @@ app.get("/api/v1", (req, res) => {
   return res.send("Welcome Blog Web Api");
 });
 
-app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/users", authRoutes);
 app.use("/api/v1/blogs", blogRoutes);
+app.use("/api/v1/profile", userRoutes);
 
 // Error Handling
 
